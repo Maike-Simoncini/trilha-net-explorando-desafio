@@ -1,21 +1,79 @@
-# DIO - Trilha .NET - Explorando a linguagem C#
-www.dio.me
+# Sistema de Reservas de Hotel - Desafio DIO .NET
 
-## Desafio de projeto
-Para este desafio, você precisará usar seus conhecimentos adquiridos no módulo de explorando a linguagem C#, da trilha .NET da DIO.
+Este é um projeto desenvolvido como parte do desafio da trilha **.NET - Explorando a linguagem C#** da [DIO](https://www.dio.me/). O sistema simula um hotel onde é possível realizar reservas, cadastrar hóspedes e suítes, calcular valores e aplicar descontos conforme as regras definidas.
 
-## Contexto
-Você foi contratado para construir um sistema de hospedagem, que será usado para realizar uma reserva em um hotel. Você precisará usar a classe Pessoa, que representa o hóspede, a classe Suíte, e a classe Reserva, que fará um relacionamento entre ambos.
+## 🎯 Objetivo
 
-O seu programa deverá cálcular corretamente os valores dos métodos da classe Reserva, que precisará trazer a quantidade de hóspedes e o valor da diária, concedendo um desconto de 10% para caso a reserva seja para um período maior que 10 dias.
+Implementar um sistema de hospedagem com as seguintes funcionalidades:
+- Cadastro de hóspedes (classe `Pessoa`)
+- Cadastro de suítes (classe `Suite`)
+- Realização de reservas (classe `Reserva`)
+- Validação de capacidade da suíte
+- Cálculo de valor da diária com desconto para estadias de 10 dias ou mais
 
-## Regras e validações
-1. Não deve ser possível realizar uma reserva de uma suíte com capacidade menor do que a quantidade de hóspedes. Exemplo: Se é uma suíte capaz de hospedar 2 pessoas, então ao passar 3 hóspedes deverá retornar uma exception.
-2. O método ObterQuantidadeHospedes da classe Reserva deverá retornar a quantidade total de hóspedes, enquanto que o método CalcularValorDiaria deverá retornar o valor da diária (Dias reservados x valor da diária).
-3. Caso seja feita uma reserva igual ou maior que 10 dias, deverá ser concedido um desconto de 10% no valor da diária.
+## 📐 Diagrama de Classes
 
+![Diagrama de Classes do Sistema](diagrama_classe_hotel.png)
 
-![Diagrama de classe estacionamento](diagrama_classe_hotel.png)
+## 📁 Estrutura do Projeto
 
-## Solução
-O código está pela metade, e você deverá dar continuidade obedecendo as regras descritas acima, para que no final, tenhamos um programa funcional. Procure pela palavra comentada "TODO" no código, em seguida, implemente conforme as regras acima.
+```
+trilha-net-explorando-desafio/
+├── Models/
+│   ├── Pessoa.cs        
+│   ├── Suite.cs        
+│   └── Reserva.cs       
+├── .gitignore
+├── DesafioProjetoHospedagem.csproj
+├── Program.cs         
+├── README.md           
+└── diagrama_classe_hotel.png 
+```
+
+## ✅ Regras Implementadas
+
+1. **Validação de Capacidade**: Não é possível reservar uma suíte com capacidade menor que o número de hóspedes. Caso contrário, uma exceção (`ArgumentException`) é lançada.
+2. **Cálculo de Diária**: O valor total é calculado por: `DiasReservados × ValorDiaria`.
+3. **Desconto**: Para reservas de 10 dias ou mais, é aplicado um desconto de 10% no valor total.
+
+## 🚀 Como Executar
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/Maike-Simoncini/trilha-net-explorando-desafio.git
+cd trilha-net-explorando-desafio
+```
+
+2. Compile e execute o projeto:
+```bash
+dotnet run
+```
+
+> 💡 Certifique-se de ter o [.NET SDK](https://dotnet.microsoft.com/download) instalado em sua máquina.
+
+## 📝 Exemplo de Uso (no Program.cs)
+
+```csharp
+// Criar uma suíte
+Suite suite = new Suite("Premium", 2, 250.0m);
+
+// Criar hóspedes
+List<Pessoa> hospedes = new List<Pessoa>
+{
+    new Pessoa { Nome = "João", Sobrenome = "Silva" },
+    new Pessoa { Nome = "Maria", Sobrenome = "Oliveira" }
+};
+
+// Criar reserva
+Reserva reserva = new Reserva(12); // 12 dias
+reserva.CadastrarSuite(suite);
+reserva.CadastrarHospedes(hospedes);
+
+// Mostrar resultados
+Console.WriteLine($"Quantidade de hóspedes: {reserva.ObterQuantidadeHospedes()}");
+Console.WriteLine($"Valor da diária (com desconto): R$ {reserva.CalcularValorDiaria():F2}");
+```
+
+## 📝 Licença
+
+Este projeto é educacional e pode ser usado livremente para fins de aprendizado.
